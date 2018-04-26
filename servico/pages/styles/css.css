@@ -1,0 +1,13 @@
+.circle {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+td.dia-semana {
+  text-align: center;
+}
+
+td.horario-label {
+  text-align: right;
+}

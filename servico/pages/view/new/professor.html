@@ -1,0 +1,47 @@
+
+<h1>Novo Professor</h1>
+
+<form action="/otimizacao/professor/novo" method="post">
+  Nome do Professor: <input required type="text" name="nome_professor" id="nome_professor">
+  <br />
+  Horários disponíveis:
+  <table id="horarios_disponiveis" border="1">
+    <thead>
+      <tr>
+        <td></td>
+        <td>Segunda</td>
+        <td>Terça</td>
+        <td>Quarta</td>
+        <td>Quinta</td>
+        <td>Sexta</td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <br />
+  <input type="submit" value="Cadastrar">
+  <a href="/otimizacao">
+    <input type="button" value="Voltar">
+  </a>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+  criaTabelaHorariosPermitidos();
+});
+
+function criaTabelaHorariosPermitidos(){
+  var linha = '';
+  for (var i=0; i<3; i++){
+    linha += '<tr><td>' + (i+1) + '° horário</td>'
+    for (var j=0; j<5; j++) {
+      var id = 'horario[' + i + '][' + j + ']';
+      linha += '<td align="center"><input id="' + id + '" name="' + id + '" type="checkbox" checked></td>'
+    }
+    linha += '</tr>'
+  }
+  $('#horarios_disponiveis').append(linha);
+}
+</script>

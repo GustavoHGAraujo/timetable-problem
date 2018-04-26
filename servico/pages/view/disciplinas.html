@@ -1,0 +1,21 @@
+{{define "disciplinas"}}
+<h2>Disciplinas</h2>
+<a href="/otimizacao/disciplina/novo">
+  <button type="button">Nova disciplina</button>
+</a>
+<br/>
+<table>
+  <thead>
+    <tr>
+      <th>ID</td>
+      <th>Nome</td>
+      <th>Professor</td>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .Disciplina}}
+      {{template "disciplina" .}}
+    {{end}}
+  </tbody>
+</table>
+{{end}}
