@@ -1,3 +1,66 @@
-  <h1>{{.Title}}</h2>
-  {{template "professores" .}}
-  {{template "disciplinas" .}}
+    <h1>{{.Title}}</h1>
+{{template "section-professores" .}}
+{{template "section-disciplinas" .}}
+
+    <button id="run_simplex" onclick="runSimplex();">Resolver</button>
+
+    <div id="resultado_simplex_panel" style="display: none;">
+        <h3 id="resultado_simplex_title">Simplex está em execução</h3>
+        <div id="resultado_simplex_content">
+            <p>Aguarde o fim da execução do algoritmo</p>
+            <p>Os resultados serão apresentados na tela assim que a execução for finalizada.</p>
+        </div>
+
+        <table id="tabela_resultado" border="1" style="display: none;">
+            <thead>
+            <tr>
+                <td width="15%"></td>
+                <td width="15%" class="dia-semana">Segunda</td>
+                <td width="15%" class="dia-semana">Terça</td>
+                <td width="15%" class="dia-semana">Quarta</td>
+                <td width="15%" class="dia-semana">Quinta</td>
+                <td width="15%" class="dia-semana">Sexta</td>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function runSimplex() {
+            $('#resultado_simplex_panel').show();
+
+            $.ajax({
+                url: "/otimizacao/simplex/run",
+                success: function (data) {
+                    makeTable(data.data);
+                }
+            })
+        }
+
+        function makeTable(data) {
+            if (data.length > 0) {
+                var linha = '';
+                for (var i=0; i<3; i++){
+                    linha += '<tr><td class="horario-label">' + (i+1) + '° horário</td>'
+                    for (var j=0; j<5; j++) {
+			var disciplina = data[j][i];
+                        linha += '<td align="center">';
+			console.log('disciplina[' + j + '][' + i + ']: ' + disciplina);
+                        if (disciplina.id != 0) {
+                            linha += disciplina.nome + ' (' + disciplina.professor.nome + ')'
+                        }
+                        linha += '</td>'
+                    }
+                    linha += '</tr>'
+                }
+                $('#tabela_resultado').append(linha);
+            }
+
+            $('#resultado_simplex_title').html("Quadro de horários gerado.");
+	    $('#resultado_simplex_content').hide();
+            $('#tabela_resultado').show();
+        }
+    </script>

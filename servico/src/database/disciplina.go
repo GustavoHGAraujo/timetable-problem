@@ -15,7 +15,7 @@ type Disciplinas []Disciplina
 
 const INSERT_DISCIPLINA                = `INSERT INTO Disciplina (nome_disciplina, id_professor) VALUES (:nome_disciplina, :id_professor)`
 const SELECT_DISCIPLINA_ALL            = `SELECT * FROM Disciplina NATURAL JOIN Professor;`
-const SELECT_DISCIPLINA_BY_ID          = `SELECT * FROM Disciplina NATURAL JOIN Professor WHERE id_professor=?;`
+const SELECT_DISCIPLINA_BY_ID          = `SELECT * FROM Disciplina NATURAL JOIN Professor WHERE id_disciplina=?;`
 
 func (d *Disciplina) New() (error) {
   util.LogD(TAG, "Disciplina.New()")

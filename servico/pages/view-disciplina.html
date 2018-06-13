@@ -1,0 +1,12 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/css.css">
+</head>
+<body>
+  <h1>Detalhes da disciplina</h1>
+  <b>Nome:</b> {{.Nome}}<br/>
+  <b>Professor:<a href="/otimizacao/professor/{{.Id}}">{{.Professor.Nome}}</a></b><br/>
+  <b>Ações disponíveis</b>
+  <a href="/otimizacao/disciplina/{{.Id}}/editar">Editar</a>
+  <a href="/otimizacao/disciplina/{{.Id}}/excluir">Excluir</a>
+</body>

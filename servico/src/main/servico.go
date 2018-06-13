@@ -5,10 +5,12 @@ import (
   "net/http"
   "os"
 
-  handler "../handler"
-  handlerJson "../handler/json"
+  "../handlerView"
+  "../handlerService"
   "../util"
-  "../url"
+  url "../url"
+  urlView "../url/view"
+  urlService "../url/service"
 
   "github.com/gorilla/mux"
 )
@@ -28,18 +30,23 @@ func main() {
   router := mux.NewRouter().StrictSlash(true)
 
   // Resources
-  router.HandleFunc("/{FileName}.css", handler.Styles)
-  router.HandleFunc("/images/{FileName}.jpg", handler.Images)
+  router.HandleFunc("/{FileName}.css", handlerView.Styles)
+  router.HandleFunc("/images/{FileName}.jpg", handlerView.Images)
 
   // Páginas
-	router.HandleFunc(url.INDEX, handler.Index)
+	router.HandleFunc(urlView.INDEX, handlerView.Index)
 
   // CRUD
-  router.HandleFunc(url.PROFESSOR_NOVO, handler.NewProfessor)
-  router.HandleFunc(url.PROFESSOR, handler.GetProfessorById)
-  router.HandleFunc(url.JSON_PROFESSOR_TODOS, handlerJson.GetProfessorTodos)
+  router.HandleFunc(urlView.PROFESSOR_NOVO, handlerView.NewProfessor)
+  router.HandleFunc(urlView.PROFESSOR_EDITAR, handlerView.EditProfessor)
+  router.HandleFunc(urlView.PROFESSOR, handlerView.GetProfessorById)
+  router.HandleFunc(urlView.PROFESSORES, handlerView.GetProfessores)
+  router.HandleFunc(urlView.SIMPLEX, handlerView.RunSimplex)
+  //router.HandleFunc(urlView.PROFESSOR_DELETE, handlerView.DeleteProfessorById)
+  router.HandleFunc(urlService.PROFESSOR_TODOS, handlerService.GetProfessorTodos)
 
-  router.HandleFunc(url.DISCIPLINA_NOVO, handler.NewDisciplina)
+  router.HandleFunc(urlView.DISCIPLINA_NOVO, handlerView.NewDisciplina)
+  router.HandleFunc(urlView.DISCIPLINA, handlerView.GetDisciplinaById)
 
   log.Fatal(http.ListenAndServe(":" + url.PORT, router))
 }

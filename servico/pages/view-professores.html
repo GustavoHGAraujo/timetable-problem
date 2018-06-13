@@ -1,0 +1,10 @@
+<h1>Professores</h1>
+<a href="/otimizacao/professor/novo">
+  <button type="button">Novo professor</button>
+</a>
+<br/>
+<ul>
+{{range .Professores}}
+  {{template "item-professor" .}}
+{{end}}
+</ul>

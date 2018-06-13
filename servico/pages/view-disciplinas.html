@@ -1,0 +1,19 @@
+<h1>Disciplinas</h1>
+<a href="/otimizacao/disciplina/novo">
+  <button type="button">Nova disciplina</button>
+</a>
+<br/>
+<table>
+  <thead>
+    <tr>
+      <th>ID</td>
+      <th>Nome</td>
+      <th>Professor</td>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .Disciplina}}
+      {{template "item-disciplina" .}}
+    {{end}}
+  </tbody>
+</table>

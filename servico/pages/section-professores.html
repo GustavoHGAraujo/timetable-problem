@@ -1,0 +1,12 @@
+{{define "section-professores"}}
+  <h2>Professores</h2>
+  <a href="/otimizacao/professor/novo">
+    <button type="button">Novo professor</button>
+  </a>
+  <br/>
+  <ul>
+  {{range .Professores}}
+    {{template "item-professor" .}}
+  {{end}}
+  </ul>
+{{end}}

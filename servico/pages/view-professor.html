@@ -1,0 +1,47 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/css.css">
+</head>
+<body>
+  <h1>Detalhes do professor</h1>
+  <b>Nome:</b> {{.Nome}}<br/>
+  <b>Horários Disponíveis:</b>
+  <table id="horarios" border="1">
+    <thead>
+      <tr>
+        <td width="15%"></td>
+        <td width="15%" class="dia-semana">Segunda</td>
+        <td width="15%" class="dia-semana">Terça</td>
+        <td width="15%" class="dia-semana">Quarta</td>
+        <td width="15%" class="dia-semana">Quinta</td>
+        <td width="15%" class="dia-semana">Sexta</td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <b>Ações disponíveis</b>
+  <a href="/otimizacao/professor/{{.Id}}/editar">Editar</a>
+  <a href="/otimizacao/professor/{{.Id}}/excluir">Excluir</a>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+  criaTabelaHorariosPermitidos();
+});
+
+function criaTabelaHorariosPermitidos(){
+  var horarios = {{.Horarios}}
+  var linha = '';
+  var bolinha = '<div class="circle" style="background: black"></div>';
+  for (var i=0; i<3; i++){
+    linha += '<tr><td class="horario-label">' + (i+1) + '° horário</td>'
+    for (var j=0; j<5; j++) {
+      linha += '<td align="center">' + (horarios[j][i] ? bolinha : '') + '</td>'
+    }
+    linha += '</tr>'
+  }
+  $('#horarios').append(linha);
+}
+</script>

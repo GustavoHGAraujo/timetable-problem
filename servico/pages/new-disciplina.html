@@ -1,0 +1,19 @@
+
+<h1>Novo Professor</h1>
+
+<form action="/otimizacao/disciplina/novo" method="post">
+  Nome da Disciplina:
+  <input required type="text" name="nome_disciplina" id="nome_disciplina">
+  <br />
+  Professor:
+  <select required id="professor" name="id_professor" onchange="selectUpdated(this);">
+    {{range .}}
+      {{template "option-professor" .}}
+    {{end}}
+  </select>
+  <br />
+  <input type="submit" value="Cadastrar">
+  <a href="/otimizacao">
+    <button>Voltar</button>
+  </a>
+</form>
