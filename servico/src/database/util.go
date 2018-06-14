@@ -10,7 +10,7 @@ import "github.com/go-playground/form"
 const TAG = "Database"
 const DATABASE = `otimizacao`
 const USER = `root`
-const PASS = `EntraAgoraFdp`
+const PASS = `root`
 
 const PROFESSOR_TABLE = `Professor`
 const DISCIPLINA_TABLE = `Disciplina`

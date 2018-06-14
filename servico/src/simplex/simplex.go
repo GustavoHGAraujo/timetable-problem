@@ -3,9 +3,8 @@ package simplex
 import db "../database"
 
 import (
-	"fmt"
-	"../glpk"
 	"../util"
+	"fmt"
 )
 
 const TAG = "Simplex"
@@ -115,8 +114,8 @@ func Run(c chan Result, professores db.Professores, disciplinas db.Disciplinas) 
 
 	// Return the results
 	result := new(Result)
-	result.Board = output
-	result.Error = err
+	// result.Board = output
+	// result.Error = err
 
 	c <- *result
 	util.LogD(TAG, "Run() ended.")

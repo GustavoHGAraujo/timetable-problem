@@ -27,7 +27,7 @@ func New(teachers database.Professores, disciplines database.Disciplinas) Model 
 
 func (m *Model) newRestriction() int {
 	r := len(m.RestrictionCoefficients)
-	m.RestrictionCoefficients = append(m.RestrictionCoefficients, make([]float64, m.CountVariables()))
+	m.RestrictionCoefficients = append(m.RestrictionCoefficients, make([]float64, m.CountVariables() + 1))
 	for c := 0; c <= m.CountVariables(); c ++ {
 		m.RestrictionCoefficients[r][c] = 0.0
 	}
@@ -46,7 +46,7 @@ func (m *Model) createVariables() {
 }
 
 func (m *Model) createRestrictionCoefficients() {
-	restrictionCoefficients := make([][]float64, 0)
+	m.RestrictionCoefficients = make([][]float64, 0)
 
 	// Restrictions 3-1
 	for k := 0; k < m.CountClasses(); k++ {
@@ -54,7 +54,7 @@ func (m *Model) createRestrictionCoefficients() {
 		for i := range m.Teachers {
 			for j := range m.Subjects {
 				l := m.GetVariable(i, j, k)
-				restrictionCoefficients[r][l] = 1.0
+				m.RestrictionCoefficients[r][l] = 1.0
 			}
 		}
 	}
@@ -73,7 +73,7 @@ func (m *Model) createRestrictionCoefficients() {
 		if i != -1 {
 			for k := 0; k < m.CountClasses(); k++ {
 				l := m.GetVariable(i, j, k)
-				restrictionCoefficients[r][l] = 1.0
+				m.RestrictionCoefficients[r][l] = 1.0
 			}
 		}
 	}
@@ -85,7 +85,7 @@ func (m *Model) createRestrictionCoefficients() {
 			for k := 0; k < m.CountClasses(); k++ {
 				l := m.GetVariable(i, j, k)
 				if teacher.Id != subject.Professor.Id {
-					restrictionCoefficients[r][l] = 1.0
+					m.RestrictionCoefficients[r][l] = 1.0
 				}
 			}
 		}
@@ -99,7 +99,7 @@ func (m *Model) createRestrictionCoefficients() {
 				for h2 := range classes {
 					k := h1*3 + h2
 					l := m.GetVariable(i, j, k)
-					restrictionCoefficients[r][l] = 1.0
+					m.RestrictionCoefficients[r][l] = 1.0
 				}
 			}
 		}
@@ -114,13 +114,11 @@ func (m *Model) createRestrictionCoefficients() {
 				r := m.newRestriction()
 				for j := range m.Subjects {
 					l := m.GetVariable(i, j, k)
-					restrictionCoefficients[r][l] = 1.0
+					m.RestrictionCoefficients[r][l] = 1.0
 				}
 			}
 		}
 	}
-
-	m.RestrictionCoefficients = restrictionCoefficients
 }
 
 func (m *Model) CountClasses() int {
