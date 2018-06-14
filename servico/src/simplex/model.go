@@ -27,7 +27,7 @@ func New(teachers database.Professores, disciplines database.Disciplinas) Model 
 
 func (m *Model) newRestriction() int {
 	r := len(m.RestrictionCoefficients)
-	m.RestrictionCoefficients = append(m.RestrictionCoefficients, make([]float64, m.CountVariables() + 1))
+	m.RestrictionCoefficients = append(m.RestrictionCoefficients, make([]float64, m.CountVariables()))
 	for c := 0; c <= m.CountVariables(); c ++ {
 		m.RestrictionCoefficients[r][c] = 0.0
 	}
