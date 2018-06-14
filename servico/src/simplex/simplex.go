@@ -1,20 +1,21 @@
 package simplex
 
-import db "../database"
 
 import (
+	"../database"
 	"../util"
+	"../glpk"
 	"fmt"
 )
 
 const TAG = "Simplex"
 
 type Result struct {
-	Board [][]db.Disciplina
+	Board [][]database.Disciplina
 	Error error
 }
 
-func Run(c chan Result, professores db.Professores, disciplinas db.Disciplinas) {
+func Run(c chan Result, professores database.Professores, disciplinas database.Disciplinas) {
 	util.LogD(TAG, "Run()")
 
 	fmtRestrictionName := "R(3-%02d)(%02d)"
@@ -114,8 +115,8 @@ func Run(c chan Result, professores db.Professores, disciplinas db.Disciplinas) 
 
 	// Return the results
 	result := new(Result)
-	// result.Board = output
-	// result.Error = err
+	result.Board = output
+	result.Error = err
 
 	c <- *result
 	util.LogD(TAG, "Run() ended.")
