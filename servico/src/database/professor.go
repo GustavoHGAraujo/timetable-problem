@@ -194,3 +194,7 @@ func GetProfessores() (Professores, error) {
 
 	return professores, nil
 }
+
+func (p *Professores) Count() int {
+	return len(*p)
+}

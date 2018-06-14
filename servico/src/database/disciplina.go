@@ -83,3 +83,7 @@ func GetDisciplinas() (Disciplinas, error) {
 
   return disciplinas, nil
 }
+
+func (d *Disciplinas) Count() int {
+  return len(*d)
+}
