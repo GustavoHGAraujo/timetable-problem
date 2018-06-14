@@ -45,15 +45,15 @@ func RunSimplex(w http.ResponseWriter, r *http.Request) {
   util.LogD(TAG, "RunSimplex()")
   professores, _ := db.GetProfessores()
   disciplinas, _ := db.GetDisciplinas()
-  c := make(chan simplex.SimplexResult)
+  c := make(chan simplex.Result)
 
   go simplex.Run(c, professores, disciplinas)
 
   result := <- c
-  log.Println("Result:", result.Result)
+  log.Println("Board:", result.Board)
   if result.Error != nil {
     log.Println("Error: ", result.Error.Error())
   }
 
-  if !util.CheckError(result.Error, util.PrintErrorJson, w, r) { util.PrintJson(result.Result, w, r); }
+  if !util.CheckError(result.Error, util.PrintErrorJson, w, r) { util.PrintJson(result.Board, w, r); }
 }
